@@ -35,7 +35,9 @@
                            data.query.search[2].title,
                            data.query.search[2].snippet,
                            data.query.search[3].title,
-                           data.query.search[3].snippet
+                           data.query.search[3].snippet,
+                           data.query.search[4].title,
+                           data.query.search[4].snippet
                        ];
                        console.log(resultsArray);
 
