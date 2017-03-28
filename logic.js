@@ -17,7 +17,7 @@
                        action: 'query',
                        format: 'json',
                        list: 'search',
-                       //srwhat: 'text',
+                       //srwhat: 'title',
                        srsearch: searchTerm
                    },
                    dataType: "json",
