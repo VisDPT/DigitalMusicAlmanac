@@ -1,17 +1,11 @@
            $(document).ready(function() {
-
+//On the click of the Search Button, input value is stored in the var searchTerm
                $('#searchBtn').click(function() {
                    var searchTerm = $('#search').val();
 
-
-                   var queryURL = "https://en.wikipedia.org/w/api.php?action=query&limit=6&srsearch=" + searchTerm + "'%20artist&srlimit=5&format=json&callback=?";
-console.log(queryURL);
-                   // "https://en.wikipedia.org/w/api.php?action=query&titles=" + searchTerm + "&prop=images&imlimit=6&format=json&callback=?";
-
-                   //"https://en.wikipedia.org/w/api.php?action=query&format=jsonlist=search&srsearch=" + searchTerm;
-
-                   //    'http://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=' + searchTerm + 'limit=6&srwhat=title&callback=?'
-
+//query string wiht search parameters
+                   var queryURL = "https://en.wikipedia.org/w/api.php?action=query&limit=5&srsearch=" + searchTerm + "'%20artist&srlimit=5&format=json&callback=?";
+//actual ajax call
 
                    $.ajax({
                        method: "GET",
@@ -45,31 +39,28 @@ console.log(queryURL);
                                data.query.search[4].title,
                                data.query.search[4].snippet
                            ];
-                           console.log(resultsArray);
 
-                           //apppend results to page
 
-                           //
-  $('#results').empty();
+
+
+                           //empties old search results!
+                           $('#results').empty();
+                                //apppend results to page
                            $('#results').append("<p>Results for <b>" + searchTerm + "</b></p>");
-                           $.each(data.query.search, function(i,item){
-                                       $('#results').append(
-                                                "<div><a href='http://en.wikipedia.org/wiki/" + item.title + "'>" + item.title+ "</a>"
-                                                +"<br>"
-                                                + item.snippet
-                                                +"<br>"
-                                                +"<br>"
-                                                + "</div>"
+                           $.each(data.query.search, function(i, item) {
+                               $('#results').append(
+                                   //Link opens in new tab! Woohoo!
+                                   "<div><a target='_blank' href='http://en.wikipedia.org/wiki/" + item.title + "'>" + item.title + "</a>" +
+                                   "<br>" +
+                                   item.snippet +
+                                   "<br>" +
+                                   "<br>" +
+                                   "</div>"
+                               );
 
+                           });
 
-                            );
-                                 //     $("#results").append(
-                                 //
-                                 //     + item.title + "</a><br>"
-                                 //      + item.snippet + "<br><br></div>");
-                                     });
-
-
+ $("#search").val(""); //clears text in search box
                        }
                    });
                });
