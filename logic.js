@@ -4,7 +4,7 @@
                    var searchTerm = $('#search').val();
 
 
-                   var queryURL = "https://en.wikipedia.org/w/api.php?action=query&srsearch=" + searchTerm + "&format=json&callback=?";
+                   var queryURL = "https://en.wikipedia.org/w/api.php?action=query&limit=6&srsearch=" + searchTerm + "'%20artist&srlimit=5&format=json&callback=?";
 console.log(queryURL);
                    // "https://en.wikipedia.org/w/api.php?action=query&titles=" + searchTerm + "&prop=images&imlimit=6&format=json&callback=?";
 
@@ -22,7 +22,9 @@ console.log(queryURL);
                            format: 'json',
                            list: 'search',
                            //srwhat: 'title',
-                           srsearch: searchTerm
+                           srsearch: searchTerm,
+
+
                        },
                        dataType: "json",
 
@@ -45,8 +47,28 @@ console.log(queryURL);
                            ];
                            console.log(resultsArray);
 
-//Inside the Results area, Add the appending to the HTML
-$("#results").append("<p>" + resultsArray);
+                           //apppend results to page
+
+                           //
+  $('#results').empty();
+                           $('#results').append("<p>Results for <b>" + searchTerm + "</b></p>");
+                           $.each(data.query.search, function(i,item){
+                                       $('#results').append(
+                                                "<div><a href='http://en.wikipedia.org/wiki/" + item.title + "'>" + item.title+ "</a>"
+                                                +"<br>"
+                                                + item.snippet
+                                                +"<br>"
+                                                +"<br>"
+                                                + "</div>"
+
+
+                            );
+                                 //     $("#results").append(
+                                 //
+                                 //     + item.title + "</a><br>"
+                                 //      + item.snippet + "<br><br></div>");
+                                     });
+
 
                        }
                    });
